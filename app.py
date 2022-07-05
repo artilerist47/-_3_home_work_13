@@ -1,5 +1,5 @@
 from flask import Flask
-from main.views import main_blueprint, tag_blueprint, search_blueprint, bookmarks_blueprint
+from main.main_views import main_blueprint, tag_blueprint, search_blueprint, bookmarks_blueprint
 
 app = Flask(__name__)
 
