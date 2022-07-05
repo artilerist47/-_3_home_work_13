@@ -19,7 +19,7 @@ def get_all_comments():
 
 def get_post_by_id(pk):
     """
-    Получаем пост по его ID
+    Получаем пост по ID поста
     """
     return [post for post in get_all_posts() if pk == post["pk"]]
 
@@ -33,11 +33,11 @@ def get_posts_by_user(user_name):
 # и пустой список, если у пользователя нет постов.
 
 
-def get_comments_by_post_id(comments_by_post_id):
+def get_comments_by_post_id(pk):
     """
     Получаем все комментарии для конкретного поста по ID поста
     """
-    return [comment for comment in get_all_comments() if comments_by_post_id == comment["post_id"]]
+    return [comment for comment in get_all_comments() if pk == comment["post_id"]]
 # Возвращает комментарии определенного поста.
 # Функция должна вызывать ошибку ValueError если такого поста нет
 # и пустой список, если у поста нет комментов.
@@ -54,5 +54,16 @@ def get_len_comments_for_post(comments_by_post_id):
     return count
 
 
-# def search_for_posts(query):
-#     pass
+def get_len_post(posts):
+    """
+    Получаем количество комментариев для поста по ID поста
+    """
+    count = 0
+    for comments in get_all_comments():
+        if posts == comments["pk"]:
+            count += 1
+    return count
+
+
+def get_post_by_word(word):
+    return [post for post in get_all_posts() if word in post["content"].lower()]

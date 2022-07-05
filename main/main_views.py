@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
-from utils import get_all_posts, get_post_by_id, get_posts_by_user, get_comments_by_post_id, get_len_comments_for_post
+from utils import get_all_posts, get_post_by_id, get_posts_by_user, get_comments_by_post_id, get_len_comments_for_post, \
+    get_post_by_word
 
 main_blueprint = Blueprint("main_blueprint", __name__, template_folder="templates")
 search_blueprint = Blueprint("search_blueprint", __name__, template_folder="templates")
@@ -38,9 +39,12 @@ def search_post_by_user_name(user_name):
     return render_template("posts_by_user_name.html", posts_by_user_name=post)
 
 
-# @search_blueprint.get("/search/")
-# def main_page():
-#     return render_template("search.html")
+@search_blueprint.get("/search/")
+def search_page():
+    search_query = request.args.get("s", "")
+    posts = get_post_by_word(search_query)
+    len_posts = len(posts)
+    return render_template("search.html", query=search_query, posts=posts, len_posts=len_posts)
 
 
 # @tag_blueprint.get("/tag/")
