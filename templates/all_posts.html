@@ -28,18 +28,18 @@
   </header>
 
   <main class="container">
-      {% for post in posts %}
+      {% for post in all_posts %}
       <section class="items">
           <div class="items__item item">
               <div class="item__top">
-                  <a href="/templates/user-feed.html" class="item__head">
+                  <a href="/posts/{{post.poster_name}}" class="item__head">
                       <div class="item__ava-wrap">
                           <img src="{{post.poster_avatar}}" alt="Аватар" class="item__ava" width="47">
                       </div>
                       <span class="item__username">{{post.poster_name}}</span>
                   </a>
               </div>
-              <a href="/post" class="item__post-link">
+              <a href="/post/{{post.pk}}" class="item__post-link">
                   <img src="{{post.pic}}" width="348" alt="" class="item__post-img">
               </a>
               <p>{{post.content}}</p>
@@ -50,7 +50,7 @@
                   </div>
               </div>
               <div class="item__post-bottom">
-                <a href="/templates/post.html/post.html" class="item__btn-more">Подробнее</a>
+                <a href="/post/{{post.pk}}" class="item__btn-more">Подробнее</a>
                 <button type="button" class="item__bookmark-btn">
                     <img src="../../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
                 </button>
