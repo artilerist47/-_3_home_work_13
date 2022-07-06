@@ -66,4 +66,7 @@ def get_len_post(posts):
 
 
 def get_post_by_word(word):
+    """
+    Возвращаем посты по вхождению слова
+    """
     return [post for post in get_all_posts() if word in post["content"].lower()]

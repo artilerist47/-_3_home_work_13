@@ -41,7 +41,7 @@ def search_post_by_user_name(user_name):
 
 @search_blueprint.get("/search/")
 def search_page():
-    search_query = request.args.get("s", "")
+    search_query = request.args.get("s", "").lower()
     posts = get_post_by_word(search_query)
     len_posts = len(posts)
     return render_template("search.html", query=search_query, posts=posts, len_posts=len_posts)
