@@ -23,9 +23,9 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#skyprogram"></use>
             </svg>
         </a>
-        <a href="/bookmarks" class="header__bookmark-btn">
+        <a href="/all_bookmarks" class="header__bookmark-btn">
             <img src="../static/img/bookmark.png" alt="" class="header__bookmark-icon" width="28">
-            <span class="header__bookmark-counter">?</span>
+            <span class="header__bookmark-counter">{{ len_bookmark }}</span>
         </a>
     </div>
 </header>
@@ -33,32 +33,35 @@
 <main class="container">
     {% for post in all_posts %}
         <section class="items">
-        <div class="items__item item">
-            <div class="item__top">
-                <a href="/posts/{{ post.poster_name }}" class="item__head">
-                    <div class="item__ava-wrap">
-                        <img src="{{ post.poster_avatar }}" alt="Аватар" class="item__ava" width="47">
-                    </div>
-                    <span class="item__username">{{ post.poster_name }}</span>
+            <div class="items__item item">
+                <div class="item__top">
+                    <a href="/posts/{{ post.poster_name }}" class="item__head">
+                        <div class="item__ava-wrap">
+                            <img src="{{ post.poster_avatar }}" alt="Аватар" class="item__ava" width="47">
+                        </div>
+                        <span class="item__username">{{ post.poster_name }}</span>
+                    </a>
+                </div>
+                <a href="/post/{{ post.pk }}" class="item__post-link">
+                    <img src="{{ post.pic }}" width="348" alt="" class="item__post-img">
                 </a>
-            </div>
-            <a href="/post/{{ post.pk }}" class="item__post-link">
-                <img src="{{ post.pic }}" width="348" alt="" class="item__post-img">
-            </a>
-            <p>{{ post.content }}</p>
-            <div class="item__post-info">
-                <div class="item__counter">
-                    <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">
-                    <span class="item__counter-text">{{ post.views_count }}</span>
+                <p>{{ post.content }}</p>
+                <div class="item__post-info">
+                    <div class="item__counter">
+                        <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">
+                        <span class="item__counter-text">{{ post.views_count }}</span>
+                    </div>
+                </div>
+                <div class="item__post-bottom">
+                    <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
+                    <button type="button" class="item__bookmark-btn">
+                        <a href="???" class="item__btn-more">
+                            <img src="../../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+                        </a>
+                    </button>
                 </div>
             </div>
-            <div class="item__post-bottom">
-                <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
-                <button type="button" class="item__bookmark-btn">
-                    <img src="../../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-                </button>
-            </div>
-        </div>
+        </section>
     {% endfor %}
 </main>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">

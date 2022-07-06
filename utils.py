@@ -17,6 +17,14 @@ def get_all_comments():
         return json.load(file)
 
 
+def get_all_bookmarks():
+    """
+    Читаем файл с закладками
+    """
+    with open("data/bookmarks.json", encoding="utf-8") as file:
+        return json.load(file)
+
+
 def get_post_by_id(pk):
     """
     Получаем пост по ID поста
@@ -54,19 +62,23 @@ def get_len_comments_for_post(comments_by_post_id):
     return count
 
 
-def get_len_post(posts):
-    """
-    Получаем количество комментариев для поста по ID поста
-    """
-    count = 0
-    for comments in get_all_comments():
-        if posts == comments["pk"]:
-            count += 1
-    return count
-
-
 def get_post_by_word(word):
     """
-    Возвращаем посты по вхождению слова
+    Возвращает список постов по ключевому слову
     """
     return [post for post in get_all_posts() if word in post["content"].lower()]
+
+
+# def add_post_to_bookmark(post):
+#     posts = get_all_bookmark()
+#     posts.append(post)
+#     with open("bookmarks.json", "w", encoding="utf-8") as file:
+#         json.dump(posts, file, ensure_ascii=False)
+#     return post
+
+
+# def save_picture(picture):
+#     filename = picture.filename
+#     path = f"./uploads/images/{filename}"
+#     picture.save(path)
+#     return path

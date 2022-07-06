@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request
 
-from utils import get_all_posts, get_post_by_id, get_posts_by_user, get_comments_by_post_id, get_len_comments_for_post, \
-    get_post_by_word
+from utils import get_all_posts, get_post_by_id, get_posts_by_user, \
+    get_comments_by_post_id, get_len_comments_for_post, get_post_by_word, \
+    get_all_bookmarks  # , add_post_to_bookmark
 
 main_blueprint = Blueprint("main_blueprint", __name__, template_folder="templates")
 search_blueprint = Blueprint("search_blueprint", __name__, template_folder="templates")
@@ -15,8 +16,14 @@ def main_page():
     Открываем главную страницу со всеми постами
     """
     posts = get_all_posts()
-    # return render_template("index.html", posts=posts)
-    return render_template("all_posts.html", all_posts=posts)
+    len_bookmark = len(get_all_bookmarks())
+    return render_template("all_posts.html", all_posts=posts, len_bookmark=len_bookmark)
+
+
+@bookmarks_blueprint.get("/all_bookmarks")
+def bookmarks_page():
+    posts_bookmark = get_all_bookmarks()
+    return render_template("all_bookmarks.html", all_bookmarks=posts_bookmark)
 
 
 @search_blueprint.get("/post/<int:pk>")
@@ -41,18 +48,40 @@ def search_post_by_user_name(user_name):
 
 @search_blueprint.get("/search/")
 def search_page():
+    """
+    Ищет посты по вхождению слова
+    """
     search_query = request.args.get("s", "").lower()
     posts = get_post_by_word(search_query)
     len_posts = len(posts)
     return render_template("search.html", query=search_query, posts=posts, len_posts=len_posts)
 
 
+# @bookmarks_blueprint.route("/bookmarks/add", methods=["POST"])
+# def add_bookmark():
+#
+#     poster_name = request.form.get("poster_name")
+#     poster_avatar = request.files.get("poster_avatar")
+#     picture = request.files.get("picture")
+#     content = request.form.get("content")
+#     views_count = request.form.get("views_count")
+#     likes_count = request.form.get("likes_count")
+#     post_id = request.form.get("post_id")
+#
+#     post = add_post_to_bookmark({
+#         "poster_name": poster_name,
+#         "poster_avatar": poster_avatar,
+#         "picture": picture,
+#         "content": content,
+#         "views_count": views_count,
+#         "likes_count": likes_count,
+#         "post_id": post_id,
+#     })
+#
+#     return render_template("all_posts.html", post=post)
+
+
 # @tag_blueprint.get("/tag/")
 # def main_page():
 #     return render_template("tag.html")
-#
-#
-@bookmarks_blueprint.get("/bookmarks/")
-def main_page():
-    return render_template("bookmarks.html")
 
