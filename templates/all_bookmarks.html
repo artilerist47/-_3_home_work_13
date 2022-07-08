@@ -38,7 +38,20 @@
                         </div>
                         <span class="item__username">{{ post.poster_name }}</span>
                     </a>
-                    <a href="#" class="item__delete">Удалить</a>
+                    <form action="/bookmarks/remove_bookmarks" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <input value="{{ post.poster_name }}" type="hidden" name="poster_name">
+                            <input value="{{ post.poster_avatar }}" type="hidden" name="poster_avatar">
+                            <input value="{{ post.pic }}" type="hidden" name="pic">
+                            <input value="{{ post.content }}" type="hidden" name="content">
+                            <input value="{{ post.views_count }}" type="hidden" name="views_count">
+                            <input value="{{ post.likes_count }}" type="hidden" name="likes_count">
+                            <input value="{{ post.pk }}" type="hidden" name="pk">
+                        </div>
+                        <div>
+                            <input type="submit" value="Удалить" class="item__delete">
+                        </div>
+                    </form>
                 </div>
                 <a href="/post/{{ post.pk }}" class="item__post-link">
                     <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">

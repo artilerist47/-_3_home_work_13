@@ -83,6 +83,17 @@ def add_post_to_bookmark(post_bookmark):
             json.dump(add_post, file, ensure_ascii=False)
 
 
+def remote_post_to_bookmark(post_bookmark):
+    """
+    Функция удаления закладок
+    """
+    remove_post = get_all_bookmarks()
+    if post_bookmark in remove_post:
+        remove_post.remove(post_bookmark)
+        with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+            json.dump(remove_post, file, ensure_ascii=False)
+
+
 def get_posts_by_tag(tag):
     """
     Получает все посты с указанным тегом (он получает пустой список)

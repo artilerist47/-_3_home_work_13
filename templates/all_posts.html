@@ -63,7 +63,7 @@
                 <div class="item__post-bottom">
                     <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
                     <button type="button" class="item__bookmark-btn">
-                        <form action="/add_bookmarks" method="POST" enctype="multipart/form-data">
+                        <form action="/bookmarks/add_bookmarks" method="POST" enctype="multipart/form-data">
                             <div>
                                 <input value="{{ post.poster_name }}" type="hidden" name="poster_name">
                                 <input value="{{ post.poster_avatar }}" type="hidden" name="poster_avatar">
