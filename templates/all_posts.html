@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKYPROGRAM</title>
-    <link href="../../static/css/styles.min.css" rel="stylesheet">
+    <link href="../static/css/styles.min.css" rel="stylesheet">
 
 </head>
 
@@ -49,14 +49,14 @@
                 </a>
                 {% for tag in post.content.split() %}
                     {% if tag.startswith('#') %}
-                         <a href="/tag/{{ tag }}">{{ tag }}</a>
+                        <a href="/tag/{{ tag }}" methods="POST">{{ tag }}</a>
                     {% endif %}
                 {% endfor %}
                 <p class="item__descr">
                     {{ post.content }}</p>
                 <div class="item__post-info">
                     <div class="item__counter">
-                        <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">
+                        <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">
                         <span class="item__counter-text">{{ post.views_count }}</span>
                     </div>
                 </div>
@@ -65,16 +65,16 @@
                     <button type="button" class="item__bookmark-btn">
                         <form action="/add_bookmarks" method="POST" enctype="multipart/form-data">
                             <div>
-                                <input value="{{ post.poster_name }}" type="hidden" name={{ post.poster_name }}>
-                                <input value="{{ post.poster_avatar }} "type="hidden" name={{ post.poster_avatar }}>
-                                <input value="{{ post.pic }}" type="hidden" name={{ post.pic }}>
-                                <input value="{{ post.content }}" type="hidden" name={{ post.content }}>
-                                <input value="{{ post.views_count }}" type="hidden" name={{ post.views_count }}>
-                                <input value="{{ post.likes_count }}" type="hidden" name={{ post.likes_count }}>
-                                <input value="{{ post.pk }}" type="hidden" name={{ post.pk }}>
+                                <input value="{{ post.poster_name }}" type="hidden" name="poster_name">
+                                <input value="{{ post.poster_avatar }}" type="hidden" name="poster_avatar">
+                                <input value="{{ post.pic }}" type="hidden" name="pic">
+                                <input value="{{ post.content }}" type="hidden" name="content">
+                                <input value="{{ post.views_count }}" type="hidden" name="views_count">
+                                <input value="{{ post.likes_count }}" type="hidden" name="likes_count">
+                                <input value="{{ post.pk }}" type="hidden" name="pk">
                             </div>
                             <div>
-                                <input type="submit" value="отправить" class="button">
+                                <input type="submit" value="Добавить в закладки" class="button">
                             </div>
                             <a href="/add_bookmarks" class="item__btn-more">
                                 <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">

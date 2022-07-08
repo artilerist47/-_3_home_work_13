@@ -7,45 +7,24 @@ def get_all_posts():
     """
     Читаем файл с постами
     """
-    try:
-        with open("data/posts.json", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        logging.error("File posts not found")
-        return "Файл c постами не найден"
-    except JSONDecodeError:
-        logging.error("The file posts is corrupt or invalid")
-        return "Файл с постами повреждён или не валиден"
+    with open("data/posts.json", encoding="utf-8") as file:
+        return json.load(file)
 
 
 def get_all_comments():
     """
     Читаем файл с комментариями
     """
-    try:
-        with open("data/comments.json", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        logging.error("File comments not found")
-        return "Файл с комментариями не найден"
-    except JSONDecodeError:
-        logging.error("The file comments is corrupt or invalid")
-        return "Файл с комментариями повреждён или не валиден"
+    with open("data/comments.json", encoding="utf-8") as file:
+        return json.load(file)
 
 
 def get_all_bookmarks():
     """
     Читаем файл с закладками
     """
-    try:
-        with open("data/bookmarks.json", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        logging.error("File bookmarks not found")
-        return "Файл с закладками не найден"
-    except JSONDecodeError:
-        logging.error("The file bookmarks is corrupt or invalid")
-        return "Файл с закладками повреждён или не валиден"
+    with open("data/bookmarks.json", encoding="utf-8") as file:
+        return json.load(file)
 
 
 def get_post_by_id(pk):
@@ -95,10 +74,18 @@ def get_post_by_word(word):
 
 def add_post_to_bookmark(post_bookmark):
     """
-    Функция добавления закладок (временно не работает, добавляет все строки null)
+    Функция добавления закладок
     """
     add_post = get_all_bookmarks()
-    add_post.append(post_bookmark)
-    with open("data/bookmarks.json", "w", encoding="utf-8") as file:
-        json.dump(add_post, file, ensure_ascii=False)
+    if post_bookmark not in add_post:
+        add_post.append(post_bookmark)
+        with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+            json.dump(add_post, file, ensure_ascii=False)
 
+
+def get_posts_by_tag(tag):
+    """
+    Получает все посты с указанным тегом (он получает пустой список)
+    """
+    print(1, [post for post in get_all_posts() if tag in post["content"]])
+    return [post for post in get_all_posts() if tag in post["content"]]
