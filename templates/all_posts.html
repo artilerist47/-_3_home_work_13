@@ -15,10 +15,10 @@
 <header class="container header">
     <div class="header__wrapper">
         <a href="/search" class="header__btn-back">
-            <img src="../static/img/loupe.png" alt="" class="header__loupe-icon" width="28">
+            <img src="../static/img/glass.png" alt="" class="header__loupe-icon" width="28">
             <span class="header__loupe-counter"></span>
         </a>
-        <a href="/static" class="header__logo-link">
+        <a class="header__logo-link">
             <svg class="header__logo" width="177" height="26">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#skyprogram"></use>
             </svg>
@@ -35,6 +35,8 @@
         <section class="items">
             <div class="items__item item">
                 <div class="item__top">
+                </div>
+                <div class="item__top">
                     <a href="/posts/{{ post.poster_name }}" class="item__head">
                         <div class="item__ava-wrap">
                             <img src="{{ post.poster_avatar }}" alt="Аватар" class="item__ava" width="47">
@@ -45,7 +47,13 @@
                 <a href="/post/{{ post.pk }}" class="item__post-link">
                     <img src="{{ post.pic }}" width="348" alt="" class="item__post-img">
                 </a>
-                <p>{{ post.content }}</p>
+                {% for tag in post.content.split() %}
+                    {% if tag.startswith('#') %}
+                         <a href="/tag/{{ tag }}">{{ tag }}</a>
+                    {% endif %}
+                {% endfor %}
+                <p class="item__descr">
+                    {{ post.content }}</p>
                 <div class="item__post-info">
                     <div class="item__counter">
                         <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">
@@ -55,9 +63,23 @@
                 <div class="item__post-bottom">
                     <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
                     <button type="button" class="item__bookmark-btn">
-                        <a href="???" class="item__btn-more">
-                            <img src="../../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-                        </a>
+                        <form action="/add_bookmarks" method="POST" enctype="multipart/form-data">
+                            <div>
+                                <input value="{{ post.poster_name }}" type="hidden" name={{ post.poster_name }}>
+                                <input value="{{ post.poster_avatar }} "type="hidden" name={{ post.poster_avatar }}>
+                                <input value="{{ post.pic }}" type="hidden" name={{ post.pic }}>
+                                <input value="{{ post.content }}" type="hidden" name={{ post.content }}>
+                                <input value="{{ post.views_count }}" type="hidden" name={{ post.views_count }}>
+                                <input value="{{ post.likes_count }}" type="hidden" name={{ post.likes_count }}>
+                                <input value="{{ post.pk }}" type="hidden" name={{ post.pk }}>
+                            </div>
+                            <div>
+                                <input type="submit" value="отправить" class="button">
+                            </div>
+                            <a href="/add_bookmarks" class="item__btn-more">
+                                <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+                            </a>
+                        </form>
                     </button>
                 </div>
             </div>
