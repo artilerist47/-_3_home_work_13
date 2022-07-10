@@ -67,7 +67,7 @@
                 {% endfor %}
 
                 <div class="item__descr">
-                    <p class="item__text">{{ post.content }}</p>
+                    <p class="item__text">{{ post.content[:50] }}...</p>
                     <div class="item__post-bottom">
                         <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
                         <div class="item__counter">

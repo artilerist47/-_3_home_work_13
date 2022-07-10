@@ -50,7 +50,7 @@
                     <a href="/tag/{{ tag }}">{{ tag }}</a>
                 {% endif %}
             {% endfor %}
-            <p class="item__descr">{{ post.content }}</p>
+            <p class="item__descr">{{ post.content[:50] }}...</p>
             <div class="item__post-info">
                 <div class="item__counter">
                     <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, abort
 import logging
 from json import JSONDecodeError
 
@@ -21,19 +21,19 @@ def main_page():
     try:
         posts = get_all_posts()
     except FileNotFoundError:
-        logging.error("File posts not found")
-        return "Файл c постами не найден"
+        logging.info("Файл c постами не найден|File posts not found")
+        return abort(404)
     except JSONDecodeError:
-        logging.error("The file posts is corrupt or invalid")
-        return "Файл с постами повреждён или не валиден"
+        logging.info("Файл с постами повреждён или не валиден|The file posts is corrupt or invalid")
+        return abort(500)
     try:
         len_bookmark = len(get_all_bookmarks())
     except FileNotFoundError:
-        logging.error("File bookmarks not found")
-        return "Файл с закладками не найден"
+        logging.error("Файл с закладками не найден|File bookmarks not found")
+        return abort(404)
     except JSONDecodeError:
-        logging.error("The file bookmarks is corrupt or invalid")
-        return "Файл с закладками повреждён или не валиден"
+        logging.error("Файл с закладками повреждён или не валиден|The file bookmarks is corrupt or invalid")
+        return abort(500)
     return render_template("all_posts.html", all_posts=posts, len_bookmark=len_bookmark)
 
 
@@ -55,11 +55,11 @@ def search_post_by_id(pk):
     try:
         comments = get_comments_by_post_id(pk)
     except FileNotFoundError:
-        logging.error("File comments not found")
-        return "Файл с комментариями не найден"
+        logging.info("File comments not found|Файл с комментариями не найден")
+        return abort(404)
     except JSONDecodeError:
-        logging.error("The file comments is corrupt or invalid")
-        return "Файл с комментариями повреждён или не валиден"
+        logging.info("The file comments is corrupt or invalid|Файл с комментариями повреждён или не валиден")
+        return abort(500)
     len_comments = get_len_comments_for_post(pk)
     return render_template("post_by_id.html", post_by_id=post, comments=comments, len_comments=len_comments)
 

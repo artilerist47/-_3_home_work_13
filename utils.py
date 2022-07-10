@@ -1,6 +1,6 @@
 import json
 import logging
-from json import JSONDecodeError
+from flask import abort
 
 
 def get_all_posts():
@@ -38,20 +38,14 @@ def get_posts_by_user(user_name):
     """
     Получаем все посты конкретного пользователя
     """
-    try:
-        return [post for post in get_all_posts() if user_name == post["poster_name"].lower()]
-    except ValueError:
-        return "Такой пользователь не найден"
+    return [post for post in get_all_posts() if user_name == post["poster_name"].lower()]
 
 
 def get_comments_by_post_id(pk):
     """
     Получаем все комментарии для конкретного поста по ID поста
     """
-    try:
-        return [comment for comment in get_all_comments() if pk == comment["post_id"]]
-    except ValueError:
-        return "Такого поста нет"
+    return [comment for comment in get_all_comments() if pk == comment["post_id"]]
 
 
 def get_len_comments_for_post(comments_by_post_id):
