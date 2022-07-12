@@ -12,9 +12,8 @@ def bookmarks_page():
     """
     Открывает страницу с закладками
     """
-    posts_bookmark = get_all_bookmarks()
     try:
-        return render_template("all_bookmarks.html", all_bookmarks=posts_bookmark)
+        return render_template("all_bookmarks.html", all_bookmarks=get_all_bookmarks())
     except:
         logging.info("Problems opening the page(all_bookmarks)|Проблемы с открытием страницы(all_bookmarks)")
         return abort(500, "There was a problem with the server|На сервере произошли неполадки")

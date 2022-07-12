@@ -18,10 +18,8 @@ def main_page():
     """
     Открывает главную страницу со всеми постами
     """
-    posts = get_all_posts()
-    len_bookmark = len(get_all_bookmarks())
     try:
-        return render_template("all_posts.html", all_posts=posts, len_bookmark=len_bookmark)
+        return render_template("all_posts.html", all_posts=get_all_posts(), len_bookmark=len(get_all_bookmarks()))
     except:
         logging.info("Problems opening the page(all_posts)|Проблемы с открытием страницы(all_posts)")
         return abort(500, "There was a problem with the server|На сервере произошли неполадки")
@@ -32,11 +30,9 @@ def search_post_by_id(pk):
     """
     Открывает конкретный пост
     """
-    post = get_post_by_id(pk)
-    comments = get_comments_by_post_id(pk)
-    len_comments = get_len_comments_for_post(pk)
     try:
-        return render_template("post_by_id.html", post_by_id=post, comments=comments, len_comments=len_comments)
+        return render_template("post_by_id.html", post_by_id=get_post_by_id(pk), comments=get_comments_by_post_id(pk),
+                               len_comments=get_len_comments_for_post(pk))
     except:
         logging.info("Problems opening the page(post_by_id)|Проблемы с открытием страницы(post_by_id)")
         return abort(500, "There was a problem with the server|На сервере произошли неполадки")
@@ -47,9 +43,8 @@ def search_post_by_user_name(user_name):
     """
     Открывает все посты конкретного пользователя
     """
-    post = get_posts_by_user(user_name)
     try:
-        return render_template("posts_by_user_name.html", posts_by_user_name=post)
+        return render_template("posts_by_user_name.html", posts_by_user_name=get_posts_by_user(user_name))
     except:
         logging.info("Problems opening the page(posts_by_user_name)|Проблемы с открытием страницы(posts_by_user_name)")
         return abort(500, "There was a problem with the server|На сервере произошли неполадки")
@@ -61,10 +56,9 @@ def search_page():
     Ищет посты по вхождению слова
     """
     search_query = request.args.get("s", "").lower()
-    posts = get_post_by_word(search_query)
-    len_posts = len(posts)
     try:
-        return render_template("search.html", query=search_query, posts=posts, len_posts=len_posts)
+        return render_template("search.html", query=search_query, posts=get_post_by_word(search_query),
+                               len_posts=len(get_post_by_word(search_query)))
     except:
         logging.info("Problems opening the page(search)|Проблемы с открытием страницы(search)")
         return abort(500, "There was a problem with the server|На сервере произошли неполадки")
@@ -78,5 +72,3 @@ def tag_page():
     posts_with_a_tag = get_posts_by_tag(tag="#")
     print(2, posts_with_a_tag)
     return render_template("tag.html", posts_with_a_tag=posts_with_a_tag)
-
-
