@@ -9,7 +9,7 @@ def get_all_posts():
     Читаем файл с постами
     """
     try:
-        with open("../data/posts.json", encoding="utf-8") as file:
+        with open("data/posts.json", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         logging.info("File posts not found|Файл с постами не найден")
@@ -24,7 +24,7 @@ def get_all_comments():
     Читаем файл с комментариями
     """
     try:
-        with open("../data/comments.json", encoding="utf-8") as file:
+        with open("data/comments.json", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         logging.info("File comments not found|Файл с комментариями не найден")
@@ -33,7 +33,6 @@ def get_all_comments():
         logging.info("The file comments is corrupt or invalid|Файл с комментариями повреждён или не валиден")
         return abort(500, ValueError(
             "The file comments is corrupt or invalid|Файл с комментариями повреждён или не валиден"))
-
 
 
 def get_post_by_id(pk):
@@ -91,3 +90,41 @@ def get_posts_by_tag(tag):
     """
     print(1, [post for post in get_all_posts() if tag in post["content"]])
     return [post for post in get_all_posts() if tag in post["content"]]
+
+
+def get_all_bookmarks():
+    """
+    Читаем файл с закладками
+    """
+    try:
+        with open("data/bookmarks.json", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        logging.info("File bookmarks not found|Файл с закладками не найден")
+        return abort(404, ValueError("File bookmarks not found|Файл с закладками не найден"))
+    except JSONDecodeError:
+        logging.info("The file bookmarks is corrupt or invalid|Файл с закладками повреждён или не валиден")
+        return abort(500,
+                     ValueError("The file bookmarks is corrupt or invalid|Файл с закладками повреждён или не валиден"))
+
+
+def add_post_to_bookmark(post_bookmark):
+    """
+    Функция добавления закладок
+    """
+    add_post = get_all_bookmarks()
+    if post_bookmark not in add_post:
+        add_post.append(post_bookmark)
+        with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+            json.dump(add_post, file, ensure_ascii=False)
+
+
+def remote_post_to_bookmark(post_bookmark):
+    """
+    Функция удаления закладок
+    """
+    remove_post = get_all_bookmarks()
+    if post_bookmark in remove_post:
+        remove_post.remove(post_bookmark)
+        with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+            json.dump(remove_post, file, ensure_ascii=False)

@@ -12,7 +12,7 @@
 
 <header class="container header">
     <div class="header__wrapper">
-        <a href="/static" class="header__btn-back">
+        <a href="/" class="header__btn-back">
             <svg class="header__btn-icon" width="19" height="16">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#back"></use>
             </svg>
@@ -26,7 +26,7 @@
 </header>
 
 <main class="container">
-    {% for post in posts_by_user_name %}
+    {% for post in post_by_id %}
         <section class="items">
             <div class="items__item item item--post">
                 <div class="item__top">
@@ -37,7 +37,7 @@
                         <span class="item__username">{{ post.poster_name }}</span>
                     </a>
                     <button type="button" class="item__bookmark-btn">
-                       <form action="/bookmarks/add_bookmarks" method="POST" enctype="multipart/form-data">
+                        <form action="/bookmarks/add_bookmarks" method="POST" enctype="multipart/form-data">
                             <div>
                                 <input value="{{ post.poster_name }}" type="hidden" name="poster_name">
                                 <input value="{{ post.poster_avatar }}" type="hidden" name="poster_avatar">
@@ -56,7 +56,7 @@
                         </form>
                     </button>
                 </div>
-                <a href="/post/{{ post.pk }}" class="item__post-link">
+                <a href="" class="item__post-link">
                     <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
                 </a>
 
@@ -67,17 +67,23 @@
                 {% endfor %}
 
                 <div class="item__descr">
-                    <p class="item__text">{{ post.content[:50] }}...</p>
-                    <div class="item__post-bottom">
-                        <a href="/post/{{ post.pk }}" class="item__btn-more">Подробнее</a>
+                    <p class="item__text">{{ post.content }}</p>
+                </div>
+                <div class="item__bottom">
+                    <div class="item__post-info">
+                        <p class="item__comments-counter">{{ len_comments }} комментария</p>
                         <div class="item__counter">
                             <img src="../../static/img/eye.png" alt="" class="item__counter-icon" width="26">
                             <span class="item__counter-text">{{ post.views_count }}</span>
                         </div>
                     </div>
-                </div>
-                <div class="item__bottom">
-                    <div class="item__post-info"></div>
+                    {% for comment in comments %}
+                        <div class="item__comments">
+                            <p class="item__comment">
+                                <b>{{ comment.commenter_name }}:</b> {{ comment.comment }}
+                            </p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
