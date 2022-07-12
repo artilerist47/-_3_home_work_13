@@ -1,7 +1,9 @@
 import logging
 
 from flask import Flask
-from main.main_views import main_blueprint, search_blueprint, tag_blueprint, bookmarks_blueprint, api_blueprint
+from main.main_views import main_blueprint, search_blueprint, tag_blueprint
+from bookmark.bookmark_views import bookmarks_blueprint
+from api.api_views import api_blueprint
 
 app = Flask(__name__)
 
