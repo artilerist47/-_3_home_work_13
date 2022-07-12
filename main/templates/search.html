@@ -30,7 +30,7 @@
         </form>
         <p class="search__results">Найдено постов: {{ len_posts }}</p>
     </div>
-    {% for post in posts %}
+    {% for post in posts[:10] %}
         <section class="items">
 
         <div class="items__item item">

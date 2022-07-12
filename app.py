@@ -4,7 +4,7 @@ from flask import Flask
 from main.main_views import main_blueprint, search_blueprint, tag_blueprint
 from bookmark.bookmark_views import bookmarks_blueprint
 from bookmark.change_bookmarks import change_bookmarks
-from api.api_views import api_blueprint
+from api.api import api_blueprint
 
 app = Flask(__name__)
 
