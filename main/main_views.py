@@ -1,5 +1,4 @@
 import logging
-
 from flask import Blueprint, render_template, request, abort
 
 from main.utils import get_all_posts, get_post_by_id, get_posts_by_user, \
@@ -18,11 +17,7 @@ def main_page():
     """
     Открывает главную страницу со всеми постами
     """
-    try:
-        return render_template("all_posts.html", all_posts=get_all_posts(), len_bookmark=len(get_all_bookmarks()))
-    except:
-        logging.info("Problems opening the page(all_posts)|Проблемы с открытием страницы(all_posts)")
-        return abort(500, "There was a problem with the server|На сервере произошли неполадки")
+    return render_template("all_posts.html", all_posts=get_all_posts(), len_bookmark=len(get_all_bookmarks()))
 
 
 @search_blueprint.get("/post/<int:pk>")
@@ -30,12 +25,12 @@ def search_post_by_id(pk):
     """
     Открывает конкретный пост
     """
-    try:
+    if get_post_by_id(pk) is None:
+        logging.info("No such post found|Такой пост не найден")
+        return abort(404, ValueError("No such post found|Такой пост не найден"))
+    else:
         return render_template("post_by_id.html", post_by_id=get_post_by_id(pk), comments=get_comments_by_post_id(pk),
                                len_comments=get_len_comments_for_post(pk))
-    except:
-        logging.info("Problems opening the page(post_by_id)|Проблемы с открытием страницы(post_by_id)")
-        return abort(500, "There was a problem with the server|На сервере произошли неполадки")
 
 
 @search_blueprint.get("/posts/<user_name>")
@@ -43,11 +38,11 @@ def search_post_by_user_name(user_name):
     """
     Открывает все посты конкретного пользователя
     """
-    try:
+    if get_posts_by_user(user_name) is None:
+        logging.info("This user was not found|Такой пользователь не найден")
+        return abort(404, ValueError("This user was not found|Такой пользователь не найден"))
+    else:
         return render_template("posts_by_user_name.html", posts_by_user_name=get_posts_by_user(user_name))
-    except:
-        logging.info("Problems opening the page(posts_by_user_name)|Проблемы с открытием страницы(posts_by_user_name)")
-        return abort(500, "There was a problem with the server|На сервере произошли неполадки")
 
 
 @search_blueprint.get("/search/")
@@ -56,12 +51,8 @@ def search_page():
     Ищет посты по вхождению слова
     """
     search_query = request.args.get("s", "").lower()
-    try:
-        return render_template("search.html", query=search_query, posts=get_post_by_word(search_query),
-                               len_posts=len(get_post_by_word(search_query)))
-    except:
-        logging.info("Problems opening the page(search)|Проблемы с открытием страницы(search)")
-        return abort(500, "There was a problem with the server|На сервере произошли неполадки")
+    return render_template("search.html", query=search_query, posts=get_post_by_word(search_query),
+                           len_posts=len(get_post_by_word(search_query)))
 
 
 @tag_blueprint.get("/tag/")
