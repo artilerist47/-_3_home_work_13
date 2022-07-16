@@ -1,3 +1,4 @@
+# файл тестовый. не уверен как его правильно писать
 import logging
 
 from flask import Blueprint, jsonify

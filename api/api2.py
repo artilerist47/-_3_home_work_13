@@ -1,3 +1,4 @@
+# файл тестовый. не уверен как его правильно писать
 from flask import Flask, jsonify
 import json
 
