@@ -1,0 +1,11 @@
+[Unit]
+Description=Flask-app
+After=network.target
+
+[Service]
+WorkingDirectory=/home/artilerist47/home_work_25_v2/
+ExecStart=/home/artilerist47/home_work_25_v2/venv/bin/python -m gunicorn run:app -b 0.0.0.0:80 -w 4
+Restart=always
+
+[Install]
+WantedBy=multi-user.target 
