@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/artilerist47/home_work_25/
-ExecStart=/home/artilerist47/home_work_25/env/bin/python app.py
+ExecStart=/home/artilerist47/home_work_25/env/bin/python -m flask app -h 0.0.0.0 -p 80
 Restart=always
 
 [Install]
