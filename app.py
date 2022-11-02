@@ -15,8 +15,8 @@ app.register_blueprint(bookmarks_blueprint)
 app.register_blueprint(change_bookmarks)
 app.register_blueprint(api_blueprint)
 
-logging.basicConfig(filename="logs.log", encoding="utf-8", level=logging.INFO,
-                    format='%(asctime)s [%(levelname)s] %(message)s')
+# logging.basicConfig(filename="logs.log", encoding="utf-8", level=logging.INFO,
+#                     format='%(asctime)s [%(levelname)s] %(message)s')
 
 if __name__ == "__main__":
     app.run()

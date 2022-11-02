@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask-app
+After=network.target
+
+[Service]
+WorkingDirectory=/home/artilerist47/test_home_work_3/
+ExecStart=/home/artilerist47/env/bin/python -m flask run -h 0.0.0.0 -p 80
+Environment="APP_SETINGS=/home/artilerist47/config.py"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
