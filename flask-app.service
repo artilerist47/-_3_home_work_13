@@ -3,9 +3,8 @@ Description=Flask-app
 After=network.target
 
 [Service]
-WorkingDirectory=/home/artilerist47/test_home_work_3/
-ExecStart=/home/artilerist47/env/bin/python app.py
-Environment="APP_SETINGS=/home/artilerist47/config.py"
+WorkingDirectory=/home/artilerist47/home_work_25/
+ExecStart=/home/artilerist47/home_work_25/env/bin/python app.py
 Restart=always
 
 [Install]
