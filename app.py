@@ -19,4 +19,4 @@ app.register_blueprint(api_blueprint)
 #                     format='%(asctime)s [%(levelname)s] %(message)s')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=1937)
